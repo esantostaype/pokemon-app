@@ -1,15 +1,22 @@
 "use client"
 import Image from "next/image";
 
-export function PokemonImage({ image, name } : { image: string, name: string }) {
+interface PokemonImageProps {
+    id: number,
+    name: string,
+    width: number,
+    height: number
+}
+
+export function PokemonImage({ id, name, width, height } : PokemonImageProps) {
 
     return (
         <Image
-            src={ image }
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${ id }.png`}
             alt={ "Picture of " + name }
             priority
-            width={256}
-            height={256}
+            width={ width }
+            height={ height }
         />
     )
 }

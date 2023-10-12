@@ -2,7 +2,571 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body{
+
+:root {
+    --bug: rgb(146,188,44);
+    --dark: rgb(89,87,97);
+    --dragon: rgb(12,105,200);
+    --electric: rgb(237,213,62);
+    --fairy: rgb(236,140,229);
+    --fighting: rgb(206,66,101);
+    --fire: rgb(251,155,81);
+    --flying: rgb(144,167,218);
+    --ghost: rgb(81,106,172);
+    --grass: rgb(95,188,81);
+    --ground: rgb(220,117,69);
+    --ice: rgb(112,204,189);
+    --normal: rgb(146,152,164);
+    --poison: rgb(168,100,199);
+    --psychic: rgb(246,111,113);
+    --rock: rgb(197,180,137);
+    --steel: rgb(82,134,157);
+    --water: rgb(74,144,221);
+    --bug-opacity: rgba(146,188,44, 0.2);
+    --dark-opacity: rgba(89,87,97, 0.2);
+    --dragon-opacity: rgba(12,105,200, 0.2);
+    --electric-opacity: rgba(237,213,62, 0.2);
+    --fairy-opacity: rgba(236,140,229, 0.2);
+    --fighting-opacity: rgba(206,66,101, 0.2);
+    --fire-opacity: rgba(251,155,81, 0.2);
+    --flying-opacity: rgba(144,167,218, 0.2);
+    --ghost-opacity: rgba(81,106,172, 0.2);
+    --grass-opacity: rgba(95,188,81, 0.2);
+    --ground-opacity: rgba(220,117,69, 0.2);
+    --ice-opacity: rgba(112,204,189, 0.2);
+    --normal-opacity: rgba(146,152,164, 0.2);
+    --poison-opacity: rgba(168,100,199, 0.2);
+    --psychic-opacity: rgba(246,111,113, 0.2);
+    --rock-opacity: rgba(197,180,137, 0.2);
+    --steel-opacity: rgba(82,134,157, 0.2);
+    --water-opacity: rgba(74,144,221, 0.2);
+    --bug-gradient: linear-gradient(0deg, rgba(146,188,44,1) 0%, rgba(175,200,54,1) 100%);
+    --dark-gradient: linear-gradient(0deg, rgba(89,87,97,1) 0%, rgba(110,117,135,1) 100%);
+    --dragon-gradient: linear-gradient(0deg, rgba(12,105,200,1) 0%, rgba(1,128,199,1) 100%);
+    --electric-gradient: linear-gradient(0deg, rgba(237,213,62,1) 0%, rgba(251,226,115,1) 100%);
+    --fairy-gradient: linear-gradient(0deg, rgba(236,140,229,1) 0%, rgba(243,167,231,1) 100%);
+    --fighting-gradient: linear-gradient(0deg, rgba(206,66,101,1) 0%, rgba(206,66,101,1) 100%);
+    --fire-gradient: linear-gradient(0deg, rgba(251,155,81,1) 0%, rgba(251,174,70,1) 100%);
+    --flying-gradient: linear-gradient(0deg, rgba(144,167,218,1) 0%, rgba(166,194,242,1) 100%);
+    --ghost-gradient: linear-gradient(0deg, rgba(81,106,172,1) 0%, rgba(119,115,212,1) 100%);
+    --grass-gradient: linear-gradient(0deg, rgba(95,188,81,1) 0%, rgba(90,193,120,1) 100%);
+    --ground-gradient: linear-gradient(0deg, rgba(220,117,69,1) 0%, rgba(210,148,99,1) 100%);
+    --ice-gradient: linear-gradient(0deg, rgba(112,204,189,1) 0%, rgba(140,221,212,1) 100%);
+    --normal-gradient: linear-gradient(0deg, rgba(146,152,164,1) 0%, rgba(163,164,158,1) 100%);
+    --poison-gradient: linear-gradient(0deg, rgba(168,100,199,1) 0%, rgba(194,97,212,1) 100%);
+    --psychic-gradient: linear-gradient(0deg, rgba(246,111,113,1) 0%, rgba(254,159,146,1) 100%);
+    --rock-gradient: linear-gradient(0deg, rgba(197,180,137,1) 0%, rgba(215,205,144,1) 100%);
+    --steel-gradient: linear-gradient(0deg, rgba(82,134,157,1) 0%, rgba(88,166,170,1) 100%);
+    --water-gradient: linear-gradient(90deg, rgba(74,144,221,1) 0%, rgba(108,189,228,1) 100%);
+}
+
+.privacy-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3f1fff;
+    z-index: 9999;
+}
+
+body{
     font-family: 'Roboto';
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.025em;
+    scrollbar-gutter: stable;
+}
+
+.pokemon-app__sidebar{
+    flex: 0 0 200px;
+    margin-right: 80px;
+}
+
+.pokemon-app__header{
+    left: 0;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999999;
+}
+
+.pokemon-app__logo__text{
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.pokemon-app__name{
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 0.9em;
+}
+
+.pokemon-app__name span{
+    color: #ffb50e;
+}
+
+.pokemon-app__content{
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 40px 80px;
+}
+
+.pokemon-app__list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 4fr)); 
+    grid-gap: 40px;
+    padding: 20px 0 0;
+    pointer-events: none;
+    width: 100%; 
+}
+
+.pokemon-app__item *{
     transition: all 0.3s ease;
+}
+
+.pokemon-app__item__link{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.015) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 2px solid transparent;
+    border-radius: 40px;
+    display: flex;
+    letter-spacing: 0.025em;
+    min-height: 318px;
+    padding: 40px;
+    position: relative;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.pokemon-app__item__image{
+    cursor: pointer;
+    margin: -30px 0 -110px;
+    position: relative;
+    z-index: 9999;
+}
+
+.pokemon-app__item__caption{
+    flex: 1;
+    margin-top: 100px;
+    text-align: left;
+    text-transform: capitalize;
+    width: 100%;
+}
+
+.pokemon-app__item__content::before{
+    border-radius: 4px 0 0 4px;
+    background-color: #000;
+    content: '';
+    height: 120px;
+    left: -4px;
+    position: absolute;
+    top: calc(50% + 64px);
+    transform: translateY(-50%);
+    width: 4px;
+    z-index: 99999999;
+}
+
+.bug .pokemon-app__item__content::before{
+    background: var(--bug);
+}
+
+.dark .pokemon-app__item__content::before{
+    background: var(--dark);
+}
+
+.dragon .pokemon-app__item__content::before{
+    background: var(--dragon);
+}
+
+.electric .pokemon-app__item__content::before{
+    background: var(--electric);
+}
+
+.fairy .pokemon-app__item__content::before{
+    background: var(--fairy);
+}
+
+.fighting .pokemon-app__item__content::before{
+    background: var(--fighting);
+}
+
+.fire .pokemon-app__item__content::before{
+    background: var(--fire);
+}
+
+.flying .pokemon-app__item__content::before{
+    background: var(--flying);
+}
+
+.ghost .pokemon-app__item__content::before{
+    background: var(--ghost);
+}
+
+.grass .pokemon-app__item__content::before{
+    background: var(--grass);
+}
+
+.ground .pokemon-app__item__content::before{
+    background: var(--ground);
+}
+
+.ice .pokemon-app__item__content::before{
+    background: var(--ice);
+}
+
+.normal .pokemon-app__item__content::before{
+    background: var(--normal);
+}
+
+.poison .pokemon-app__item__content::before{
+    background: var(--poison);
+}
+
+.psychic .pokemon-app__item__content::before{
+    background: var(--psychic);
+}
+
+.rock .pokemon-app__item__content::before{
+    background: var(--rock);
+}
+
+.steel .pokemon-app__item__content::before{
+    background: var(--steel);
+}
+
+.water .pokemon-app__item__content::before{
+    background: var(--water);
+}
+
+.pokemon-app__item__like{
+    position: absolute;
+    right: 20px;
+    top: 110px;
+    z-index: 9;
+}
+
+.pokemon-liked{
+    fill: var(--fighting);
+}
+
+.pokemon-liked path{
+    stroke: var(--fighting);
+}
+
+.pokemon-app__item__title{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.pokemon-app__item__types{
+    font-size: 12px;
+    align-items: center;
+    display: flex;
+    gap: 20px;
+}
+
+.pokemon-app__item__types__item{
+    align-items: center;
+    display: flex;
+    gap: 0.4em;
+}
+
+.pokemon-app__item__info{
+    align-items: center;
+    display: flex;
+    font-size: 12px;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.pokemon-app__item__info__item{
+    align-items: baseline;
+    display: flex;
+    gap: 4px;
+}
+
+.pokemon-app__item__info__value{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.pokemon-app__item:hover .pokemon-app__item__image{
+    transform: scale(1.1) translateX(10px);
+}
+
+.pokemon-app__item:active .pokemon-app__item__image{
+    transform: scale(0.97);
+}
+
+.pokemon-app__item:hover .pokemon-app__item__link{
+    box-shadow: 10px 0 80px rgba(0, 0, 0, 0.4);
+}
+
+.bug:hover .pokemon-app__item__link{
+    border: 2px solid var(--bug);
+    box-shadow: 10px 0 80px var(--bug-opacity);
+}
+
+.dark:hover .pokemon-app__item__link{
+    border: 2px solid var(--dark);
+    box-shadow: 10px 0 80px var(--dark-opacity);
+}
+
+.dragon:hover .pokemon-app__item__link{
+    border: 2px solid var(--dragon);
+    box-shadow: 10px 0 80px var(--dragon-opacity);
+}
+
+.electric:hover .pokemon-app__item__link{
+    border: 2px solid var(--electric);
+    box-shadow: 10px 0 80px var(--electric-opacity);
+}
+
+.fairy:hover .pokemon-app__item__link{
+    border: 2px solid var(--fairy);
+    box-shadow: 10px 0 80px var(--fairy-opacity);
+}
+
+.fighting:hover .pokemon-app__item__link{
+    border: 2px solid var(--fighting);
+    box-shadow: 10px 0 80px var(--fighting-opacity);
+}
+
+.fire:hover .pokemon-app__item__link{
+    border: 2px solid var(--fire);
+    box-shadow: 10px 0 80px var(--fire-opacity);
+}
+
+.flying:hover .pokemon-app__item__link{
+    border: 2px solid var(--flying);
+    box-shadow: 10px 0 80px var(--flying-opacity);
+}
+
+.ghost:hover .pokemon-app__item__link{
+    border: 2px solid var(--ghost);
+    box-shadow: 10px 0 80px var(--ghost-opacity);
+}
+
+.grass:hover .pokemon-app__item__link{
+    border: 2px solid var(--grass);
+    box-shadow: 10px 0 80px var(--grass-opacity);
+}
+
+.ground:hover .pokemon-app__item__link{
+    border: 2px solid var(--ground);
+    box-shadow: 10px 0 80px var(--ground-opacity);
+}
+
+.ice:hover .pokemon-app__item__link{
+    border: 2px solid var(--ice);
+    box-shadow: 10px 0 80px var(--ice-opacity);
+}
+
+.normal:hover .pokemon-app__item__link{
+    border: 2px solid var(--normal);
+    box-shadow: 10px 0 80px var(--normal-opacity);
+}
+
+.poison:hover .pokemon-app__item__link{
+    border: 2px solid var(--poison);
+    box-shadow: 10px 0 80px var(--poison-opacity);
+}
+
+.psychic:hover .pokemon-app__item__link{
+    border: 2px solid var(--psychic);
+    box-shadow: 10px 0 80px var(--psychic-opacity);
+}
+
+.rock:hover .pokemon-app__item__link{
+    border: 2px solid var(--rock);
+    box-shadow: 10px 0 80px var(--rock-opacity);
+}
+
+.steel:hover .pokemon-app__item__link{
+    border: 2px solid var(--steel);
+    box-shadow: 10px 0 80px var(--steel-opacity);
+}
+
+.water:hover .pokemon-app__item__link{
+    border: 2px solid var(--water);
+    box-shadow: 10px 0 80px var(--water-opacity);
+}
+
+.pokemon-app__item__content{
+    pointer-events: auto;
+    position: relative;
+}
+
+.pokemon-app__item__content:hover{
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.pokemon-app__list:hover .pokemon-app__item__content:not(:hover){
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+.pokemon-app__detail{
+    display: flex;
+    padding: 80px;
+    text-transform: capitalize;
+}
+
+.pokemon-app__detail__image{
+    align-items: center;
+    display: flex;
+    flex: 3;
+    justify-content: center;
+}
+
+.pokemon-app__detail__sidebar,
+.pokemon-app__detail__more-info{
+    flex: 2;
+}
+
+.pokemon-app__detail__title{
+    font-weight: bold;
+    font-size: 4em;
+    font-weight: bold;
+    margin: 40px 0;
+}
+
+.pokemon-app__detail__types{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pokemon-app__detail__info{
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    display: flex;
+    margin: 20px 0 60px;
+}
+
+.pokemon-app__detail__info__item{
+    display: flex;
+    font-weight: bold;
+    flex: 1;
+    gap: 6px;
+    padding: 16px 24px;
+    text-transform: uppercase;
+}
+
+.pokemon-app__detail__info__item:first-child{
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pokemon-app__detail__types{
+    display: flex;
+    font-size: 1.2em;
+    gap: 40px;
+}
+
+.pokemon-app__detail__stats{
+    font-weight: 400;
+}
+
+.pokemon-app__detail__stat{
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    padding: 6px 0;
+    width: 100%;
+}
+
+.pokemon-app__detail__stat__label{
+    text-align: right;
+}
+
+.pokemon-app__detail__stat__label,
+.pokemon-app__detail__stat__progress-bar{
+    flex: 1;
+}
+
+.pokemon-app__detail__stat__progress-bar{
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    height: 10px;
+    overflow: hidden;
+}
+
+.pokemon-app__detail__stat__progress-bar__value{
+    background: #fff;
+    border-radius: 5px;
+    height: 10px;
+}
+
+.bug .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--bug-gradient);
+}
+
+.dark .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--dark-gradient);
+}
+
+.dragon .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--dragon-gradient);
+}
+
+.electric .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--electric-gradient);
+}
+
+.fairy .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--fairy-gradient);
+}
+
+.fighting .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--fighting-gradient);
+}
+
+.fire .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--fire-gradient);
+}
+
+.flying .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--flying-gradient);
+}
+
+.ghost .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--ghost-gradient);
+}
+
+.grass .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--grass-gradient);
+}
+
+.ground .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--ground-gradient);
+}
+
+.ice .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--ice-gradient);
+}
+
+.normal .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--normal-gradient);
+}
+
+.poison .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--poison-gradient);
+}
+
+.psychic .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--psychic-gradient);
+}
+
+.rock .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--rock-gradient);
+}
+
+.steel .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--steel-gradient);
+}
+
+.water .pokemon-app__detail__stat__progress-bar__value{
+    background: var(--water-gradient);
 }
