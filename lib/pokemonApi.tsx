@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 const POKEMON_API = "https://pokeapi.co/api/v2/";
 
-export async function getPokemonList() {
+export async function getPokemonList( offset: number ) {
 
-    const response = await fetch( POKEMON_API + "pokemon?limit=20&offset=0" );
+    const response = await fetch( POKEMON_API + `pokemon?limit=20&offset=${offset}` );
     const prevPokemons = await response.json();
 
     const completePokemons = prevPokemons.results.map( async( pokemon: any ) => {
@@ -40,6 +40,23 @@ export async function getPokemon( name: string ) {
     }
 
     return pokemon;
+}
+
+export async function getPokemonFavorite( id: number ) {
+    const response = await fetch( POKEMON_API + "pokemon/" + id );
+    const pokemonData = await response.json();
+
+    const pokemonFavorite = {
+        id: pokemonData.id,
+        name: pokemonData.name,
+        height: pokemonData.height,
+        weight: pokemonData.weight,
+        types: pokemonData.types,
+        stats: pokemonData.stats,
+        type: pokemonData.types[0].type.name
+    };
+
+    return pokemonFavorite;
 }
 
 export async function getPokemonAbilities( id:number ) {

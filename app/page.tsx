@@ -1,7 +1,9 @@
 "use client"
+import { useState, useEffect, useRef } from 'react';
 import { PokemonCard } from "../components/pokemon-card";
 import { getPokemonList } from '@/lib/pokemonApi'
 import { motion } from "framer-motion";
+import { Spinner } from '@nextui-org/react';
 
 const easing = [ .6, -.05, .01, 0.99 ]
 
@@ -32,8 +34,39 @@ const stagger = {
 	}
 }
 
-export default async function HomePage() {
-	const pokemonList = await getPokemonList();
+export default function HomePage() {
+	const [pokemonList, setPokemonList] = useState([]);
+	const [offset, setOffset] = useState(0);
+	const isLoading = useRef(false);
+	const loadMoreRef = useRef();
+
+	const loadMore = async () => {
+		if (!isLoading.current) {
+		isLoading.current = true;
+		const newPokemonList = await getPokemonList( offset );
+		setPokemonList( ( prevPokemonList ) => [ ...prevPokemonList, ...newPokemonList ] );
+		setOffset(offset + 20);
+		isLoading.current = false;
+		}
+	};
+
+	useEffect(() => {
+		loadMore();
+	}, []);
+
+	useEffect(() => {
+		
+		const onScroll = () => {
+		if ( window.innerHeight + window.scrollY >= loadMoreRef.current.offsetTop - 100 ) {
+			loadMore();
+		}
+		};
+
+		window.addEventListener('scroll', onScroll);
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+		};
+	}, [offset]);
 	return (
 		<>
 			<motion.ul className="pokemon-app__list" variants={ stagger } title="All Pokémons">
@@ -45,6 +78,9 @@ export default async function HomePage() {
 					)
 				})}
 			</motion.ul>
+			<div className='loading-more' ref={ loadMoreRef }>
+				<Spinner label="Loading..." />
+			</div>
 		</>
 	)
 }

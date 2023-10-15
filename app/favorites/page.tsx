@@ -1,9 +1,8 @@
 "use client"
-import React, { useState, useEffect } from 'react';
-import { PokemonCard } from "../../components/pokemon-card";
-import { getPokemonList } from '@/lib/pokemonApi'
-import { motion } from "framer-motion";
-import { localFavorites } from '@/utils';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import FavoritePokemonCard from '@/components/fav-pokemon-card';
+import { getPokemonFavorite } from '@/lib/pokemonApi';
 
 const easing = [ .6, -.05, .01, 0.99 ]
 
@@ -26,31 +25,24 @@ const fadeInUp = {
 	}
 }
 
-const stagger = {
-	animate: {
-		transition: {
-			staggerChildren: 0.05
-		}
-	}
-}
+export default function FavoritesPage() {
+	const [favoritePokemon, setFavoritePokemon] = useState<number[]>([]);
 
-export default function FavoritePage() {
-
-    const [favoritePokemons, setFavoritePokemons] = useState<number[]>([]);
-
-    useEffect(() => {
-        setFavoritePokemons( localFavorites.pokemons() );
-    }, [])
+	useEffect(() => {
+		const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+		setFavoritePokemon(favorites);
+	}, []);
+	
 
 	return (
-		<motion.ul className="pokemon-app__list" variants={ stagger }>
-			{ favoritePokemons.map( id => {
-				return (
-					<motion.li key={ id } variants={ fadeInUp }>
-						{id}
-					</motion.li>
-				)
-			})}
+		<>
+		<motion.ul className="pokemon-app__list" title="Favorite Pokémon">
+			{favoritePokemon.map((id) => (
+				<motion.li key={id + 'Card'} variants={fadeInUp} className="pokemon-app__item">
+					<FavoritePokemonCard id={id} />
+				</motion.li>
+			))}
 		</motion.ul>
-	)
+		</>
+	);
 }

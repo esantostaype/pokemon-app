@@ -115,9 +115,12 @@ body{
 }
 
 .pokemon-app__nav{
+    align-items: center;
     border-left: 1px solid rgba(255,255,255,0.12);
     border-right: 1px solid rgba(255,255,255,0.12);
+    display: flex;
     flex: 1;
+    padding: 0 20px;
 }
 
 .pokemon-app__links{
@@ -715,6 +718,14 @@ body{
 
 .pokemon-app__detail__more-info__list tbody tr:last-child td{
     border-bottom: none;
+}
+
+
+
+.loading-more{
+    display: flex;
+    justify-content: center;
+    padding: 72px 0;
 }
 
 @media screen and (max-width: 1600px) {

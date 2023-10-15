@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
+import { HeartIcon } from '@/components/icons/Icons';
 
 export const metadata = {
 	title: 'Pokémon App',
@@ -19,6 +20,10 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
 	
 	const onClick = () => {
 		router.push("/");
+	}
+	
+	const onClickFavorites = () => {
+		router.push("/favorites");
 	}
 	
 	return (
@@ -40,6 +45,9 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
 								</div>
 								<nav className='pokemon-app__nav'>
 									<h1 className='main-title'></h1>
+									<Button onClick={ onClickFavorites } color="primary" variant="flat" startContent={<HeartIcon/>}>
+										Favorites
+									</Button>
 								</nav>
 								<div className='pokemon-app__links'></div>
 							</header>
