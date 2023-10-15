@@ -60,6 +60,12 @@
     --water-gradient: linear-gradient(90deg, rgba(74,144,221,1) 0%, rgba(108,189,228,1) 100%);
 }
 
+/* .pokemon-app__detail{
+    background-image: url(../public/images/bg.png);
+    background-attachment: fixed;
+    background-size: cover;
+} */
+
 .privacy-screen {
     position: fixed;
     top: 0;
@@ -84,33 +90,47 @@ body{
 }
 
 .pokemon-app__header{
+    background-color: rgba(44, 49, 81, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
     left: 0;
-    padding: 10px 20px;
+    display: flex;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 999999;
 }
 
-.pokemon-app__logo__text{
-    font-size: 12px;
-    text-transform: uppercase;
+.pokemon-app__logo{
+    align-items: center;
+    display: flex;
+    height: 72px;
+    justify-content: center;
+    width: 72px;
 }
 
-.pokemon-app__name{
-    font-size: 2em;
-    font-weight: 600;
-    line-height: 0.9em;
+.pokemon-app__logo button{
+    box-sizing: initial;
+    padding: 10px;
 }
 
-.pokemon-app__name span{
-    color: #ffb50e;
+.pokemon-app__nav{
+    border-left: 1px solid rgba(255,255,255,0.12);
+    border-right: 1px solid rgba(255,255,255,0.12);
+    flex: 1;
+}
+
+.pokemon-app__links{
+    width: 72px;
 }
 
 .pokemon-app__content{
+    border-left: 1px solid rgba(255,255,255,0.12);
+    border-right: 1px solid rgba(255,255,255,0.12);
     box-sizing: border-box;
-    margin: 0 auto;
-    padding: 40px 80px;
+    margin: 0 72px;
+    min-height: calc(100vh);
+    padding: 72px;
 }
 
 .pokemon-app__list{
@@ -141,9 +161,9 @@ body{
 
 .pokemon-app__item__image{
     cursor: pointer;
-    margin: -30px 0 -110px;
+    margin: -20px 0 -110px;
     position: relative;
-    z-index: 9999;
+    z-index: 2;
 }
 
 .pokemon-app__item__caption{
@@ -164,7 +184,7 @@ body{
     top: calc(50% + 64px);
     transform: translateY(-50%);
     width: 4px;
-    z-index: 99999999;
+    z-index: 2;
 }
 
 .bug .pokemon-app__item__content::before{
@@ -243,7 +263,7 @@ body{
     position: absolute;
     right: 20px;
     top: 110px;
-    z-index: 9;
+    z-index: 3;
 }
 
 .pokemon-liked{
@@ -410,43 +430,93 @@ body{
 }
 
 .pokemon-app__detail{
-    display: flex;
-    padding: 80px;
+    padding: 72px 0 0;
     text-transform: capitalize;
 }
 
-.pokemon-app__detail__image{
+.pokemon-app__detail__header{
     align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.pokemon-app__detail__header__main{
+    align-items: center;
+    display: flex;
+    flex: 5;
+    gap: 40px;
+}
+
+.pokemon-app__detail__body{
+    align-items: flex-start;
+    display: flex;
+}
+
+.pokemon-app__detail__image{
     display: flex;
     flex: 3;
     justify-content: center;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.pokemon-app__detail__image img{
+    position: relative;
+    z-index: 2;
+}
+
+.pokemon-app__detail__image::after{
+    background: #000;
+    content: '';
+    filter: blur(16px);
+    bottom: 0;
+    height: 24px;
+    left: 50%;
+    opacity: 0.4;
+    position: absolute;
+    transform: translateX(-50%);
+    max-width: 100%;
+    width: 256px;
+}
+
+.pokemon-app__detail__like{
+    bottom: 0;
+    height: 72px;
+    position: absolute;
+    right: 40px;
+    width: 72px;
+    z-index: 99;
+}
+
+.pokemon-app__detail__like svg{
+    height: 48px;
+    width: 48px;
 }
 
 .pokemon-app__detail__sidebar,
 .pokemon-app__detail__more-info{
     flex: 2;
+    width: 100%;
 }
 
 .pokemon-app__detail__title{
     font-weight: bold;
     font-size: 4em;
     font-weight: bold;
-    margin: 40px 0;
-}
-
-.pokemon-app__detail__types{
-    font-weight: bold;
-    text-transform: uppercase;
+    line-height: 1em;
 }
 
 .pokemon-app__detail__info{
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
     display: flex;
-    margin: 20px 0 60px;
+    min-width: 420px;
+    flex: 2;
 }
 
 .pokemon-app__detail__info__item{
+    align-items: center;
     display: flex;
     font-weight: bold;
     flex: 1;
@@ -462,18 +532,23 @@ body{
 .pokemon-app__detail__types{
     display: flex;
     font-size: 1.2em;
+    font-weight: bold;
     gap: 40px;
+    margin-top: 4px;
+    justify-content: center;
+    text-transform: uppercase;
 }
 
 .pokemon-app__detail__stats{
     font-weight: 400;
+    margin-bottom: 40px;
 }
 
 .pokemon-app__detail__stat{
     align-items: center;
     display: flex;
     gap: 20px;
-    padding: 6px 0;
+    padding: 2px 0;
     width: 100%;
 }
 
@@ -486,87 +561,293 @@ body{
     flex: 1;
 }
 
-.pokemon-app__detail__stat__progress-bar{
-    background-color: rgba(0, 0, 0, 0.2);
+.pokemon-app__detail__stat__progress-bar div{
+    background-color: rgba(255, 255, 255, 0.05);
     border-radius: 5px;
     height: 10px;
     overflow: hidden;
 }
 
-.pokemon-app__detail__stat__progress-bar__value{
-    background: #fff;
-    border-radius: 5px;
-    height: 10px;
-}
-
-.bug .pokemon-app__detail__stat__progress-bar__value{
+.bug .pokemon-app__detail__stat__progress-bar div div{
     background: var(--bug-gradient);
 }
 
-.dark .pokemon-app__detail__stat__progress-bar__value{
+.dark .pokemon-app__detail__stat__progress-bar div div{
     background: var(--dark-gradient);
 }
 
-.dragon .pokemon-app__detail__stat__progress-bar__value{
+.dragon .pokemon-app__detail__stat__progress-bar div div{
     background: var(--dragon-gradient);
 }
 
-.electric .pokemon-app__detail__stat__progress-bar__value{
+.electric .pokemon-app__detail__stat__progress-bar div div{
     background: var(--electric-gradient);
 }
 
-.fairy .pokemon-app__detail__stat__progress-bar__value{
+.fairy .pokemon-app__detail__stat__progress-bar div div{
     background: var(--fairy-gradient);
 }
 
-.fighting .pokemon-app__detail__stat__progress-bar__value{
+.fighting .pokemon-app__detail__stat__progress-bar div div{
     background: var(--fighting-gradient);
 }
 
-.fire .pokemon-app__detail__stat__progress-bar__value{
+.fire .pokemon-app__detail__stat__progress-bar div div{
     background: var(--fire-gradient);
 }
 
-.flying .pokemon-app__detail__stat__progress-bar__value{
+.flying .pokemon-app__detail__stat__progress-bar div div{
     background: var(--flying-gradient);
 }
 
-.ghost .pokemon-app__detail__stat__progress-bar__value{
+.ghost .pokemon-app__detail__stat__progress-bar div div{
     background: var(--ghost-gradient);
 }
 
-.grass .pokemon-app__detail__stat__progress-bar__value{
+.grass .pokemon-app__detail__stat__progress-bar div div{
     background: var(--grass-gradient);
 }
 
-.ground .pokemon-app__detail__stat__progress-bar__value{
+.ground .pokemon-app__detail__stat__progress-bar div div{
     background: var(--ground-gradient);
 }
 
-.ice .pokemon-app__detail__stat__progress-bar__value{
+.ice .pokemon-app__detail__stat__progress-bar div div{
     background: var(--ice-gradient);
 }
 
-.normal .pokemon-app__detail__stat__progress-bar__value{
+.normal .pokemon-app__detail__stat__progress-bar div div{
     background: var(--normal-gradient);
 }
 
-.poison .pokemon-app__detail__stat__progress-bar__value{
+.poison .pokemon-app__detail__stat__progress-bar div div{
     background: var(--poison-gradient);
 }
 
-.psychic .pokemon-app__detail__stat__progress-bar__value{
+.psychic .pokemon-app__detail__stat__progress-bar div div{
     background: var(--psychic-gradient);
 }
 
-.rock .pokemon-app__detail__stat__progress-bar__value{
+.rock .pokemon-app__detail__stat__progress-bar div div{
     background: var(--rock-gradient);
 }
 
-.steel .pokemon-app__detail__stat__progress-bar__value{
+.steel .pokemon-app__detail__stat__progress-bar div div{
     background: var(--steel-gradient);
 }
 
-.water .pokemon-app__detail__stat__progress-bar__value{
+.water .pokemon-app__detail__stat__progress-bar div div{
     background: var(--water-gradient);
+}
+
+.pokemon-app__detail__subtitle{
+    font-size: 2em;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.pokemon-app__detail__abilities{
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pokemon-app__detail__abilities > div{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.pokemon-app__detail__abilities h2 button{
+    font-weight: bold;
+    padding: 1em;
+    text-transform: capitalize;
+}
+
+.pokemon-app__detail__abilities section div{
+    padding: 0 1em 1em;
+}
+
+.pokemon-app__detail__more-info__list{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pokemon-app__detail__more-info__list{
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-height: 522px;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.pokemon-app__detail__more-info__list thead tr{
+    border-radius: 0!important;
+    box-shadow: none!important;
+}
+
+.pokemon-app__detail__more-info__list thead tr:nth-child(2){
+    display: none;
+}
+
+.pokemon-app__detail__more-info__list thead tr{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pokemon-app__detail__more-info__list thead tr th{
+    background: #2C3151;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pokemon-app__detail__more-info__list thead tr th:first-child,
+.pokemon-app__detail__more-info__list thead tr th:last-child{
+    border-radius: 0!important;
+}
+
+.pokemon-app__detail__more-info__list__type{
+    align-items: center;
+    display: flex;
+    gap: 4px;
+}
+
+.pokemon-app__detail__more-info__list td{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pokemon-app__detail__more-info__list tbody tr:last-child td{
+    border-bottom: none;
+}
+
+@media screen and (max-width: 1600px) {
+    body{
+        font-size: 14px;
+    }
+
+}
+
+@media screen and (max-width: 1280px) {
+
+    .pokemon-app__nav{
+        border: none;
+    }
+
+    .pokemon-app__content{
+        border: none;
+        margin: 0;
+        padding: 72px 40px 40px;
+    }
+
+    .pokemon-app__list {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 4fr));
+        grid-gap: 20px;
+    }
+
+    .pokemon-app__item__link {
+        border-radius: 25px;
+        min-height: 0;
+        padding: 25px;
+    }
+
+    .pokemon-app__detail{
+        padding-top: 40px;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+
+    .pokemon-app__content{
+        padding: 72px 30px 30px;
+    }
+
+    .pokemon-app__detail__header{
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .pokemon-app__detail__header__main{
+        margin-bottom: 10px;
+    }
+
+    .pokemon-app__detail__title{
+        font-size: 3em;
+    }
+
+    .pokemon-app__detail__types{
+        font-size: 1em;
+    }
+
+    .pokemon-app__detail__body{
+        flex-direction: column;
+    }
+
+    .pokemon-app__detail__sidebar {
+        order: 2;
+        margin: 20px 0;
+    }
+    .pokemon-app__detail__image {
+        order: 1;
+    }
+    .pokemon-app__detail__more-info {
+        order: 3;
+    }
+
+    .pokemon-app__detail__subtitle{
+        font-size: 1.5em;
+    }
+
+}
+
+@media screen and (max-width: 640px) {
+    
+    body{
+        font-size: 12px;
+    }
+
+    .pokemon-app__list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 4fr));
+    }
+
+    .pokemon-app__detail__header__main{
+        display: block;
+    }
+
+    .pokemon-app__detail__types{
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+
+    .pokemon-app__detail__info{
+        min-width: 0;
+    }
+
+    .pokemon-app__detail__info__item{
+        padding: 8px 16px;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+
+    .pokemon-app__logo {
+        height: 64px;
+        width: 64px;
+    }
+
+    .pokemon-app__logo button{
+        padding: 6px;
+    }
+
+    .pokemon-app__content{
+        padding: 64px 25px 25px;
+    }
+
+    .pokemon-app__detail__info{
+        display: block;
+    }
+
+    .pokemon-app__detail__info__item:first-child {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-right: none;
+    }
+
 }

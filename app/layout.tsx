@@ -1,9 +1,12 @@
 "use client"
+import { PokeballIcon } from '@/components/icons/Icons';
 import './globals.css'
 
 import { ThemeProvider } from '@/components/theme-provider'
 
 import { AnimatePresence, motion } from "framer-motion";
+import { Button } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 
 export const metadata = {
 	title: 'Pokémon App',
@@ -11,6 +14,13 @@ export const metadata = {
 }
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
+
+	const router = useRouter();
+	
+	const onClick = () => {
+		router.push("/");
+	}
+	
 	return (
 		<html lang="en" className="purple-dark text-foreground bg-background">
 			<body>
@@ -18,8 +28,20 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
             		<AnimatePresence mode='wait'>
 						<main className='pokemon-app'>	
 							<header className="pokemon-app__header">
-								<div className='pokemon-app__logo'>
+								<div className='pokemon-app__logo'>									
+									<Button
+										isIconOnly
+										radius="full"
+										variant="light"
+										onClick={ onClick }
+									>
+										<PokeballIcon/>
+									</Button>
 								</div>
+								<nav className='pokemon-app__nav'>
+									<h1 className='main-title'></h1>
+								</nav>
+								<div className='pokemon-app__links'></div>
 							</header>
 							<motion.section
 								initial='initial'

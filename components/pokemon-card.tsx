@@ -1,10 +1,11 @@
 'use client';
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, Image } from "@nextui-org/react";
-import { Button } from "@nextui-org/react";
-import { PokemonImage } from "./pokemon-image"
-import { HeartIcon } from "./HeartIcon";
+import { Card, Image } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
+import { PokemonImage } from './pokemon-image'
+import { HeartIcon } from '@/components/icons/Icons';
+import { localFavorites } from '@/utils';
 
 interface PokemonCardProps {
     pokemon: any
@@ -14,24 +15,31 @@ export function PokemonCard({ pokemon } : PokemonCardProps) {
 
     const router = useRouter();
 
-    const onClick = () => {
-		setTimeout(() => {			
-			router.push(`/${ pokemon.name }`);
-		}, 200);
+    const onClick = () => {		
+		router.push(`/${ pokemon.name }`);
     }
 
-	const [liked, setLiked] = React.useState(false);
+	const [isInFavorites, setIsInFavorites] = useState(false);
+ 
+	useEffect(() => {
+		setIsInFavorites(localFavorites.existInFavorites(pokemon.id));
+	  }, [pokemon.id]);
+	 
+	const onToggleFavorite = () => {
+		localFavorites.toggleFavorite(pokemon.id);
+		setIsInFavorites(!isInFavorites);
+	};
 
 	return (
 		<div className="pokemon-app__item__content">
 			<Button
 				isIconOnly
-				className="text-default-900/60 data-[hover]:bg-foreground/10 -translate-y-2 translate-x-2 pokemon-app__item__like"
+				className="pokemon-app__item__like"
 				radius="full"
 				variant="light"
-				onPress={() => setLiked((v) => !v)}
+				onClick={onToggleFavorite}
 			>
-				<HeartIcon className={ liked ? "pokemon-liked" : "" }/>
+				<HeartIcon className={ isInFavorites ? "pokemon-liked" : "" }/>
 			</Button>
 			<div className="pokemon-app__item__image" onClick={ onClick }>
 				<PokemonImage id={ pokemon.id } name={ pokemon.name } width={ 200 } height={ 200 } />

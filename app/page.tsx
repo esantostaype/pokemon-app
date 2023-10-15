@@ -35,14 +35,16 @@ const stagger = {
 export default async function HomePage() {
 	const pokemonList = await getPokemonList();
 	return (
-		<motion.ul className="pokemon-app__list" variants={ stagger }>
-			{ pokemonList.map(( pokemon : any ) => {
-				return (
-					<motion.li key={ pokemon.id + "Card" } variants={ fadeInUp } className={`pokemon-app__item ${pokemon.types[0].type.name}`}>
-						<PokemonCard pokemon={ pokemon } />
-					</motion.li>
-				)
-			})}
-		</motion.ul>
+		<>
+			<motion.ul className="pokemon-app__list" variants={ stagger } title="All Pokémons">
+				{ pokemonList.map(( pokemon : any ) => {
+					return (
+						<motion.li key={ pokemon.id + "Card" } variants={ fadeInUp } className={`pokemon-app__item ${pokemon.types[0].type.name}`}>
+							<PokemonCard pokemon={ pokemon } />
+						</motion.li>
+					)
+				})}
+			</motion.ul>
+		</>
 	)
 }
