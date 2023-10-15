@@ -9,11 +9,6 @@ import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { HeartIcon } from '@/components/icons/Icons';
 
-export const metadata = {
-	title: 'Pokémon App',
-	description: '',
-}
-
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
 
 	const router = useRouter();
