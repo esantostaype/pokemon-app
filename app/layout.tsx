@@ -1,4 +1,3 @@
-"use client"
 import { PokeballIcon } from '@/components/icons/Icons';
 import './globals.css'
 
